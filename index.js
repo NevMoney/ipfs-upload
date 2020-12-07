@@ -48,17 +48,20 @@ const hashFile = (file) => {
 
 const addToIpfs = async () => {
   console.log("adding to IPFS...");
+  $("#upload").html("Uploading");
 
   const added = await ipfs.add(buffer, {
     progress: (prog) => console.log(`received: ${prog}`),
   });
 
+  $("#upload").hide();
+
   ipfsHash = added.cid.toString();
 
   const ipfsLink =
-    "<a href='https://gateway.ipfs.io/ipfs/" +
+    "<a target='_blank' rel='noopener noreferrer' href='https://gateway.ipfs.io/ipfs/" +
     ipfsHash +
-    "'>gateway.ipfs.io/ipfs/" +
+    "'>" +
     ipfsHash +
     "</a>";
   $("#ipfsResult").html(ipfsLink);
