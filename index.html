@@ -50,6 +50,34 @@
     <!-- Upload -->
     <div id="upload-container" class="m-5">
       <div id="fileUpload">
+        <h3>Enter specifics about your property</h3>
+        Please remember, you must own this property or have authorization by the owners to upload and/or list it 
+        on their behalf. Additionally, better information you put in, easier it is to validate and sell it.<br><br>
+        <input type="text" id="address" autocomplete="on" autofocus size="75" placeholder="Property Address" required/>
+        <br><br>
+        Bedrooms: <input type="number" id="bedCount" min="0" max="35"/> &nbsp;&nbsp;&nbsp;
+        Bathrooms: <input type="number" id="bathCount" min="0" max="20" /> &nbsp;&nbsp;&nbsp;&nbsp;
+        Year Built: <input type="text" id="yearBuilt"  size="4"/>
+        <br><br>
+        House Size: <input type="text" id="houseSize" size="4" /> sqft &nbsp;&nbsp;&nbsp;&nbsp;
+        Lot Size: <input type="text" id="lotSize" size="4" required /> acres &nbsp;&nbsp;&nbsp;&nbsp;
+        Parcel Number: <input type="text" id="parcel" size="10" required />
+        <br><br>
+        <input type="radio" id="land"/> Raw Land &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="SFR"/> Single-Family Detached &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="condo"/> Condominium / Co-Op &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="MFR"/> Multi-Family Home &nbsp;&nbsp;
+        Number of Units: <input type="number" id="mfUnits" min="2" max="200"/>
+        <br><br>
+        <input type="radio" id="industrial"/> Industrial &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="CRE"/> Commercial &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="office"/> Office &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="retail"/> Retail &nbsp;&nbsp;&nbsp;
+        <input type="radio" id="mixed"/> Mixed Use         
+        <br><br>
+        <p>Please upload a clear image of your property. If you have a few images with property information
+          and floorplan (similar to what your land registry offers), this is where you add it.
+        </p>
         <input id="file" type="file" name="file" class="inputfile" />
         <label for="file" id="fileLabel">Upload a File</label>
       </div>
