@@ -16,6 +16,11 @@
       href="https://upload.wikimedia.org/wikipedia/commons/1/18/Ipfs-logo-1024-ice-text.png"
     />
 
+    <!--Google Maps Address script-->
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiQ4MDdlbW4tvvAbLgWYUUyoxAQOg10n4&libraries=places&callback=initAutocomplete">
+    </script>
+
     <title>IPFS Upload</title>
   </head>
   <body>
@@ -49,32 +54,91 @@
 
     <!-- Upload -->
     <div id="upload-container" class="m-5">
+      <!--Don't know that I need first part, esp if I get it from KYC/AML-->
+      <h2>Let's Get Started</h2>
+      <p>To properly upload your house onto the blockchain (whether for safekeeping, sale, or loans), we need some info.</p>
+      <div id="userInfo">
+        <h3>1. Your information</h3>
+        <p>While optional, this is super helpful to send you important information about your property, marketplace, offers, etc.</p>
+        <input type="text" id="first_name" class="validate" required autocomplete="fname" placeholder="First Name">
+        <input type="text" id="last_name" class="validate" required autocomplete="lname" placeholder="Last Name / Surname">
+        <br><br>
+        <input type="email" id="email" class="validate" required autocomplete="email" placeholder="Your email">
+        <br><br>
+        <input type="tel" id="phone" class="validate" required autocomplete="tel" placeholder="Cell phone">
+      </div><br>
       <div id="fileUpload">
-        <h3>Enter specifics about your property</h3>
+        <h3>2. Property Specifics</h3>
         Please remember, you must own this property or have authorization by the owners to upload and/or list it 
         on their behalf. Additionally, better information you put in, easier it is to validate and sell it.<br><br>
-        <input type="text" id="address" autocomplete="on" autofocus size="75" placeholder="Property Address" required/>
-        <br><br>
-        Bedrooms: <input type="number" id="bedCount" min="0" max="9"/> &nbsp;&nbsp;&nbsp;
-        Bathrooms: <input type="number" id="bathCount" min="0" max="9" /> &nbsp;&nbsp;&nbsp;&nbsp;
-        Year Built: <input type="text" id="yearBuilt"  size="3"/>
-        <br><br>
-        House Size: <input type="text" id="houseSize" size="3" /> sqft &nbsp;&nbsp;&nbsp;&nbsp;
-        Lot Size: <input type="text" id="lotSize" size="2" required /> acres &nbsp;&nbsp;&nbsp;&nbsp;
-        Parcel Number: <input type="text" id="parcel" size="10" required />
-        <br><br>
-        <input type="radio" id="land"/> Raw Land &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="SFR"/> Single-Family Detached &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="condo"/> Condominium / Co-Op &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="MFR"/> Multi-Family Home &nbsp;&nbsp;
-        Number of Units: <input type="number" id="mfUnits" min="2" max="99"/>
-        <br><br>
-        <input type="radio" id="industrial"/> Industrial &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="CRE"/> Commercial &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="office"/> Office &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="retail"/> Retail &nbsp;&nbsp;&nbsp;
-        <input type="radio" id="mixed"/> Mixed Use         
-        <br><br>
+        <div id="userPropertyInput">
+          <input type="text" id="autocomplete" required autocomplete="street-address" onfocus="geolocate()" autofocus size="75" placeholder="Enter property address" required/>
+          <div id="addressTable">
+          <table id="address">
+            <tr>
+              <td class="label">Street address</td>
+              <td class="slimField">
+                <input class="field" id="street_number" disabled="true" />
+              </td>
+              <td class="wideField" colspan="2">
+                <input class="field" id="route" disabled="true" />
+              </td>
+            </tr>
+            <tr>
+              <td class="label">City</td>
+              <td class="wideField" colspan="3">
+                <input class="field" id="locality" disabled="true" />
+              </td>
+            </tr>
+            <tr>
+              <td class="label">State</td>
+              <td class="slimField">
+                <input
+                  class="field"
+                  id="administrative_area_level_1"
+                  disabled="true"
+                />
+              </td>
+              <td class="label">Zip code</td>
+              <td class="wideField">
+                <input class="field" id="postal_code" disabled="true" />
+              </td>
+            </tr>
+            <tr>
+              <td class="label">Country</td>
+              <td class="wideField" colspan="3">
+                <input class="field" id="country" disabled="true" />
+              </td>
+            </tr>
+          </table>
+          </div>
+          <br>
+          Bedrooms: <input type="number" id="bedCount" min="0" max="9"/> &nbsp;&nbsp;&nbsp;
+          Bathrooms: <input type="number" id="bathCount" min="0" max="9" /> &nbsp;&nbsp;&nbsp;&nbsp;
+          Year Built: <input type="text" id="yearBuilt"  size="3"/>
+          <br><br>
+          House Size: <input type="text" id="houseSize" size="3" /> sqft &nbsp;&nbsp;&nbsp;&nbsp;
+          Lot Size: <input type="text" id="lotSize" size="2" required /> acres &nbsp;&nbsp;&nbsp;&nbsp;
+          Parcel Number: <input type="text" id="parcel" size="10" required />
+          <br><br>
+          <div id="propertyType">
+            <input type="radio" id="land"/> Raw Land &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="SFR"/> Single-Family Detached &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="condo"/> Condominium / Co-Op &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="MFR"/> Multi-Family Home &nbsp;&nbsp;
+            Number of Units: <input type="number" id="mfUnits" min="2" max="99"/>
+            <br><br>
+            <input type="radio" id="industrial"/> Industrial &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="CRE"/> Commercial &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="office"/> Office &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="retail"/> Retail &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="mixed"/> Mixed Use
+          </div>         
+          <br><br>
+          Enter or paste your property URL address from Zillow, Realtor or another reputable source:
+          <br>
+          <input type="url" id="zillow" size="90" placeholder="Paste reputable site url of your property" />
+        </div>
         <p>Please upload a clear image of your property. If you have a few images with property information
           and floorplan (similar to what your land registry offers), this is where you add it.
         </p>

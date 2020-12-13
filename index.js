@@ -29,6 +29,25 @@ $(document).ready(async () => {
   user = web3.utils.toChecksumAddress(accounts[0]);
 });
 
+// adding input with uploaded file
+// async function propertyInfo() {
+  const data = JSON.stringify({
+    // image: file, //would like to add upload image to the object to store
+    address: document.getElementById(autocomplete), 
+    bedrooms: document.getElementById(bedCount), 
+    bathrooms: document.getElementById(bathCount), 
+    yearBuilt: document.getElementById(yearBuilt), 
+    houseSize: document.getElementById(houseSize), 
+    lotSize: document.getElementById(lotSize), 
+    parcelNumber: document.getElementById(parcel), 
+    propertyType: document.getSelection, //this may not be accurate & DON"T KNOW WHY IT"S YELLOW!
+    numberOfUnits: document.getElementById(mfUnits), 
+    propertyLink: document.getElementById(zillow), 
+  });
+
+    //ipfsHash = await ipfs.add(data);
+// }
+
 const hashFile = (file) => {
   console.log(file);
   console.log(file.name);
@@ -50,7 +69,8 @@ const addToIpfs = async () => {
   console.log("adding to IPFS...");
   $("#upload").html("Uploading");
 
-  const added = await ipfs.add(buffer, {
+  // Nev added "data, before buffer"
+  const added = await ipfs.add(data, buffer, {
     progress: (prog) => console.log(`received: ${prog}`),
   });
 
@@ -117,3 +137,202 @@ $("#uploadLink").click(() => {
   $("#uploadLink").addClass("active");
   $("#upload-container").show();
 });
+
+// $("#land").click(function(){
+//   $("#land").prop("checked", true);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#SFR").click(() => {
+//   $("#SFR").prop("checked", true);
+//   $("#land").prop("checked", false); 
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#condo").click(() => {
+//   $("#condo").prop("checked", true);
+//   $("#land").prop("checked", false);
+//   $("#SFR").prop("checked", false); 
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#MFR").click(() => {
+//   $("#MFR").prop("checked", true);
+//   $("#land").prop("checked", false);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#industrial").click(() => {
+//   $("#industrial").prop("checked", true);
+//   $("#land").prop("checked", false);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);  
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#CRE").click(() => {
+//   $("#CRE").prop("checked", true);
+//   $("#land").prop("checked", false);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);  
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#office").click(() => {
+//   $("#office").prop("checked", true);
+//   $("#land").prop("checked", false);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false); 
+//   $("#retail").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#retail").click(() => {
+//   $("#retail").prop("checked", true);
+//   $("#land").prop("checked", false);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#mixed").attr("checked", false);
+// });
+
+// $("#mixed").click(() => {
+//   $("#mixed").prop("checked", true);
+//   $("#land").prop("checked", true);
+//   $("#SFR").prop("checked", false);
+//   $("#condo").prop("checked", false);
+//   $("#MFR").attr("checked", false);
+//   $("#industrial").attr("checked", false);
+//   $("#CRE").attr("checked", false);
+//   $("#office").attr("checked", false);
+//   $("#retail").attr("checked", false);
+// });
+
+// NOT WORKING! WHY???
+$(document).ready(function(){
+  $("#land").click(function(){
+      $("#land").prop("checked", true);
+  });
+  $("#SFR").click(function(){
+      $("#SFR").prop("checked", true);
+  });
+  $("#condo").click(function(){
+    ("#condo").prop("checked", true);
+  });
+  $("#MFR").click(function(){
+    ("#MFR").prop("checked", true);
+  });
+  $("#industrial").click(function(){
+    ("#industrial").prop("checked", true);
+  });
+  $("#CRE").click(function(){
+    ("#CRE").prop("checked", true);
+  });
+  $("#office").click(function(){
+    ("#office").prop("checked", true);
+  });
+  $("#retail").click(function(){
+    ("#retail").prop("checked", true);
+  });
+  $("#mixed").click(function(){
+    ("#mixed").prop("checked", true);
+  });
+});
+
+// adding Google Map functionality to address field
+// NOT WORKING LOCALLY
+let placeSearch;
+let autocomplete;
+var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrtive_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+  };
+
+function initAutocomplete(){
+  autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById("autocomplete"), 
+    {
+      types: ['geocode']
+    });
+  autocomplete.setFields(["address_component"]);
+  autocomplete.addListener("place_changed", fillInAddress);
+}
+
+function fillInAddress() {
+  // get place details from the autocomplete object
+  var place = autocomplete.getPlace();
+
+  for (var component in componentForm) {
+    document.getElementById(component).value = "";
+    document.getElementById(component).disabled = false;
+  }
+
+  // get each component of the address and fill in accurately
+  for (var componentForm of place.address_components) {
+    var addressType = component.types[0];
+
+    if (componentForm[addressType]) {
+      var val = component[componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }    
+}
+
+// use browser supported geo-locator
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy,
+      });
+      autocomplete.setBounts(circle.getBounts());
+    });
+  }
+}

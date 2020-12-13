@@ -33,3 +33,12 @@
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
 }
+
+#addressTable {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 567px;
+  height: 150px;
+  border: 1px solid hotpink;
+  padding: 5px;
+}
