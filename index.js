@@ -40,7 +40,7 @@ $(document).ready(async () => {
     houseSize: document.getElementById(houseSize), 
     lotSize: document.getElementById(lotSize), 
     parcelNumber: document.getElementById(parcel), 
-    propertyType: document.getSelection, //this may not be accurate & DON"T KNOW WHY IT"S YELLOW!
+    propertyType: document.getSelection, //this may not be accurate
     numberOfUnits: document.getElementById(mfUnits), 
     propertyLink: document.getElementById(zillow), 
   });
