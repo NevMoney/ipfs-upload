@@ -32,7 +32,7 @@ $(document).ready(async () => {
 // adding input with uploaded file
 // async function propertyInfo() {
   const data = JSON.stringify({
-    // image: file, //would like to add upload image to the object to store
+    image: file, //would like to add upload image to the object to store
     address: document.getElementById(autocomplete), 
     bedrooms: document.getElementById(bedCount), 
     bathrooms: document.getElementById(bathCount), 
@@ -69,8 +69,7 @@ const addToIpfs = async () => {
   console.log("adding to IPFS...");
   $("#upload").html("Uploading");
 
-  // Nev added "data, before buffer"
-  const added = await ipfs.add(data, buffer, {
+  const added = await ipfs.add(buffer, {
     progress: (prog) => console.log(`received: ${prog}`),
   });
 
