@@ -1,0 +1,19 @@
+  
+{
+    "name": "ipfs-upload",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+      "browserify": "^17.0.0",
+      "crypto": "^1.0.1",
+      "ipfs-http-client": "^48.1.2"
+    },
+    "devDependencies": {},
+    "scripts": {
+      "build": "browserify index.js > bundle.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }

@@ -9,7 +9,8 @@ const ipfs = ipfsClient({
 
 let buffer;
 let ipfsHash;
-
+let ipfsFileHash;
+ 
 //Executed when page finish loading
 $(document).ready(async () => {
   $("#read-container").hide();
@@ -31,22 +32,91 @@ $(document).ready(async () => {
   user = web3.utils.toChecksumAddress(accounts[0]);
 });
 
-const hashFile = (file) => {
-  console.log(file);
-  console.log(file.name);
-  $("#fileUpload").hide(file.name);
-  $("#fileName").show();
-  $("#fileName>h4").html(`File Name: ${file.name}`);
+//dynamically check what user selected as property type to insert in file
+function typeSelection() {
+  var land = $("#land");
+  var sfr = $("#sfr");
+  var mfr = $("#mfr");
+  var cre = $("#cre");
 
-  var reader = new FileReader();
-  reader.readAsArrayBuffer(file);
-  reader.onloadend = () => {
-    buffer = Buffer(reader.result);
-    console.log(buffer);
-    const hash = window.web3.utils.sha3(buffer);
-    console.log("hash", hash);
-  };
+  if(land.checked == true){
+    land.val();
+    alert("selected: " + land.val());
+  }
+  else if (sfr.checked == true){
+    sfr.val();
+  }
+  else if (mfr.checked == true){
+    mfr.val();
+  } 
+  else (cre.checked == true)
+    cre.val();
 };
+
+//check to ensure they certified
+function validateCheckbox(){
+  var checkbox = $("#certification");
+  if(checkbox.checked == false){
+    alert("You must certify you own the property.");
+    return false;
+  }
+};
+
+//not showing errors but still alowing for next step
+$("#file").click(function () {
+  return validateCheckbox();
+});
+
+// no errors but not prohibiting next step
+$(document).ready(function () {
+  $("#uploadForm").validate({
+    rules: {
+      'address': {
+        required: true,
+        minlength: 20
+      },
+      'lotSize': {
+        required: true
+      },
+      'certification': {
+        required: true
+      }
+    }
+  });
+});
+
+// async function propertyInfo() {
+  const data = JSON.stringify({
+    image: "href='https://gateway.ipfs.io/ipfs/'" + ipfsHash,
+    address: $("#address").val(), 
+    bedrooms: $("#bedrooms").val(), 
+    bathrooms: $("#bathrooms").val(), 
+    yearBuilt: $("#yearBuilt").val(), 
+    houseSize: $("#houseSize").val(), 
+    lotSize: $("#lotSize").val(), 
+    parcelNumber: $("#parcel").val(), 
+    propertyType: typeSelection(),
+    numberOfUnits: $("#mfUnits").val(), 
+    propertyLink: $("#zillow").val(), 
+    certification: $("#certification").val(),
+  });
+
+  function hashFile(file) {
+    console.log(file);
+    console.log(file.name);
+    $("#fileUpload").hide(file.name);
+    $("#fileName").show();
+    $("#fileName>h4").html(`File Name: ${file.name}`);
+
+    var reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => {
+      buffer = Buffer(reader.result);
+      console.log(buffer);
+      const hash = window.web3.utils.sha3(buffer);
+      console.log("hash", hash);
+    };
+  }
 
 const addToIpfs = async () => {
   console.log("adding to IPFS...");
