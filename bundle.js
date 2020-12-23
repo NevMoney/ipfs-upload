@@ -131,7 +131,9 @@ const addFileToIpfs = async () => {
     });
   // };
 
-  ipfsFileHash = await ipfs.add(propertyData);
+  insert = await ipfs.add(propertyData);
+
+  ipfsFileHash = insert.cid.toString();
 
   const ipfsLink =
     "<a target='_blank' rel='noopener noreferrer' href='https://gateway.ipfs.io/ipfs/" +
