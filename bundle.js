@@ -85,22 +85,6 @@ $(document).ready(function () {
   });
 });
 
-// async function propertyInfo() {
-  const data = JSON.stringify({
-    image: "href='https://gateway.ipfs.io/ipfs/'" + ipfsHash,
-    address: $("#address").val(), 
-    bedrooms: $("#bedrooms").val(), 
-    bathrooms: $("#bathrooms").val(), 
-    yearBuilt: $("#yearBuilt").val(), 
-    houseSize: $("#houseSize").val(), 
-    lotSize: $("#lotSize").val(), 
-    parcelNumber: $("#parcel").val(), 
-    propertyType: typeSelection(),
-    numberOfUnits: $("#mfUnits").val(), 
-    propertyLink: $("#zillow").val(), 
-    certification: $("#certification").val(),
-  });
-
   function hashFile(file) {
     console.log(file);
     console.log(file.name);
@@ -118,7 +102,7 @@ $(document).ready(function () {
     };
   }
 
-const addToIpfs = async () => {
+const addFileToIpfs = async () => {
   console.log("adding to IPFS...");
   $("#upload").html("Uploading");
 
@@ -130,11 +114,30 @@ const addToIpfs = async () => {
 
   ipfsHash = added.cid.toString();
 
+  // const propertyInfo = async () => {
+  const propertyData = JSON.stringify({
+      image: 'https://gateway.ipfs.io/ipfs/' + ipfsHash,
+      address: $("#address").val(), 
+      bedrooms: $("#bedrooms").val(), 
+      bathrooms: $("#bathrooms").val(), 
+      yearBuilt: $("#yearBuilt").val(), 
+      houseSize: $("#houseSize").val(), 
+      lotSize: $("#lotSize").val(), 
+      parcelNumber: $("#parcel").val(), 
+      propertyType: typeSelection(),
+      numberOfUnits: $("#mfUnits").val(), 
+      propertyLink: $("#zillow").val(), 
+      certification: $("#certification").val(),
+    });
+  // };
+
+  ipfsFileHash = await ipfs.add(propertyData);
+
   const ipfsLink =
     "<a target='_blank' rel='noopener noreferrer' href='https://gateway.ipfs.io/ipfs/" +
-    ipfsHash +
+    ipfsFileHash +
     "'>" +
-    ipfsHash +
+    ipfsFileHash +
     "</a>";
   $("#ipfsResult").html(ipfsLink);
 };
@@ -171,7 +174,10 @@ $("#file").change((e) => {
   hashFile(e.target.files[0]);
 });
 
-$("#upload").click(() => addToIpfs());
+$("#upload").click(() => {
+  console.log("data hash: " + ipfsFileHash);
+  addFileToIpfs()
+});
 
 // Navigation
 $("#readLink").click(() => {
