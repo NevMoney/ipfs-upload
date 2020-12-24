@@ -53,37 +53,15 @@ function typeSelection() {
     cre.val();
 };
 
-//check to ensure they certified
+//NOT WORKING!!!
 function validateCheckbox(){
   var checkbox = $("#certification");
   if(checkbox.checked == false){
-    alert("You must certify you own the property.");
-    return false;
+    return "No";
+  } else {
+    return "Yes";
   }
 };
-
-//not showing errors but still alowing for next step
-$("#file").click(function () {
-  return validateCheckbox();
-});
-
-// no errors but not prohibiting next step
-$(document).ready(function () {
-  $("#uploadForm").validate({
-    rules: {
-      'address': {
-        required: true,
-        minlength: 20
-      },
-      'lotSize': {
-        required: true
-      },
-      'certification': {
-        required: true
-      }
-    }
-  });
-});
 
   function hashFile(file) {
     console.log(file);
@@ -127,7 +105,7 @@ const addFileToIpfs = async () => {
       propertyType: typeSelection(),
       numberOfUnits: $("#mfUnits").val(), 
       propertyLink: $("#zillow").val(), 
-      certification: $("#certification").val(),
+      iOwnThisPlace: validateCheckbox(),
     });
   // };
 
