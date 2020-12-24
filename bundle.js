@@ -32,34 +32,12 @@ $(document).ready(async () => {
   user = web3.utils.toChecksumAddress(accounts[0]);
 });
 
-//dynamically check what user selected as property type to insert in file
-function typeSelection() {
-  var land = $("#land");
-  var sfr = $("#sfr");
-  var mfr = $("#mfr");
-  var cre = $("#cre");
-
-  if(land.checked == true){
-    land.val();
-    alert("selected: " + land.val());
-  }
-  else if (sfr.checked == true){
-    sfr.val();
-  }
-  else if (mfr.checked == true){
-    mfr.val();
-  } 
-  else (cre.checked == true)
-    cre.val();
-};
-
 //NOT WORKING!!!
 function validateCheckbox(){
-  var checkbox = $("#certification");
-  if(checkbox.checked == false){
-    return "No";
+  if($("#certification").checked){
+    return true;
   } else {
-    return "Yes";
+    return false;
   }
 };
 
@@ -92,22 +70,71 @@ const addFileToIpfs = async () => {
 
   ipfsHash = added.cid.toString();
 
-  // const propertyInfo = async () => {
   const propertyData = JSON.stringify({
-      image: 'https://gateway.ipfs.io/ipfs/' + ipfsHash,
-      address: $("#address").val(), 
-      bedrooms: $("#bedrooms").val(), 
-      bathrooms: $("#bathrooms").val(), 
-      yearBuilt: $("#yearBuilt").val(), 
-      houseSize: $("#houseSize").val(), 
-      lotSize: $("#lotSize").val(), 
-      parcelNumber: $("#parcel").val(), 
-      propertyType: typeSelection(),
-      numberOfUnits: $("#mfUnits").val(), 
-      propertyLink: $("#zillow").val(), 
-      iOwnThisPlace: validateCheckbox(),
-    });
-  // };
+    name: "Tsaishen Crypto House",
+    description: $("#description").val(),
+    image: 'https://gateway.ipfs.io/ipfs/' + ipfsHash,
+    // will likely need to tweak this once I figure out the actual URL, but for now
+    external_url: "https://tsaishen.co/cryptoHouse/marketplace/ipfsFileHash/tokenId",
+    attributes: [
+      {
+        key: address,
+        trait_type: "Address",
+        value: $("#address").val()
+      },
+      {
+        key: bedrooms,
+        trait_type: "Bedrooms",
+        value: $("#bedrooms").val()
+      },
+      {
+        key: bathrooms,
+        trait_type: "Bathrooms",
+        value: $("#bathrooms").val()
+      },
+      {
+        key: yearBuilt,
+        trait_type: "Year Built",
+        value: $("#yearBuilt").val()
+      },
+      {
+        key: houseSize,
+        trait_type: "House Size",
+        value: $("#houseSize").val()
+      },
+      {
+        key: lotSize,
+        trait_type: "Lot Size",
+        value: $("#lotSize").val()
+      },
+      {
+        key: parcelNumber,
+        trait_type: "Parcel Number",
+        value: $("#parcel").val()
+      },
+      {
+        key: propertyType,
+        trait_type: "Property Type",
+        value: $("#propertyType").val()
+      },
+      {
+        key: numberOfUnits,
+        trait_type: "Number Of Units",
+        value:  $("#mfUnits").val()
+      },
+      {
+        key: propertyLink,
+        trait_type: "Public View Link",
+        value:  $("#zillow").val()
+      },
+      {
+        key: videoLink,
+        trait_type: "Video Link",
+        value: $("#video").val()
+      }
+    ],     //may need to remove ',' if certification moved or inside array
+    certification: validateCheckbox(), //this is NOT working
+  });
 
   insert = await ipfs.add(propertyData);
 

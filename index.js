@@ -119,10 +119,10 @@ $("#uploadLink").click(() => {
   $("#upload-container").show();
 });
 
-function validateCheckbox(){
-  var checkbox = $("#checkbox");
-  if(checkbox.checked == false){
-    alert("You must certify you own the property.");
-    return false;
-  }
-};
+// function validateCheckbox(){
+//   var checkbox = $("#checkbox");
+//   if(checkbox.checked == false){
+//     alert("You must certify you own the property.");
+//     return false;
+//   }
+// };
