@@ -16,12 +16,15 @@
       href="https://upload.wikimedia.org/wikipedia/commons/1/18/Ipfs-logo-1024-ice-text.png"
     />
 
+    <!-- fontAwesome-->
+    <script src="https://kit.fontawesome.com/4da3f1c584.js" crossorigin="anonymous"></script>
+
     <title>IPFS Upload</title>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">IPFS</a>
+      <a class="navbar-brand" href="index.html">IPFS</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -35,8 +38,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav mr-auto">
-          <a class="nav-link active" href="#" id="uploadLink">Upload </a>
+          <a class="nav-link active" href="#" id="uploadLink">Upload House</a>
           <a class="nav-link" href="#" id="readLink">Read</a>
+          <a class="nav-link" href="#" id="deedLink">Deed Upload</a>
         </div>
 
         <div class="navbar-nav">
@@ -87,7 +91,7 @@
               </div>
               <div class="col-md-2"><br>
                 <label for="parcel" class="form-label">Parcel Number</label>
-                <input type="text" class="form-control" id="parcel" placeholder="APN or PIN" >
+                <input type="text" class="form-control" id="parcelNumber" placeholder="APN or PIN" >
               </div>
 
             </div>
@@ -124,19 +128,18 @@
               <i>Please note: this will be public, so no passwords, private keys, or anything else you'd like to keep private.
               </i>
             </p>
-            <!-- CLG says function not defined; onclick="return validateCheckbox()"-->
             <input id="file" type="file" name="file" class="inputfile" />
             <label for="file" id="fileLabel">Upload a File</label>
-
           </form>
-        </div>          
-        
+        </div>               
       </div>
+
       <div id="fileName" style="display: none">
-        <h4></h4>
+        <h5></h5>
         <button id="upload" type="button" class="btn btn-dark" value="SUBMIT">Upload</button>
         <div id="ipfsResult" class="mt-4"></div>
       </div>
+
     </div>
 
     <!-- Read -->
@@ -144,8 +147,131 @@
       <h4>Reading</h4>
     </div>
 
+    <!-- Deed Upload -->
+    <div class="m-5">
+      <div id="deed-container">
+        <h4>Upload Deed</h4>
+        <p>Congrats on your sale. Let's finalize it and get you paid! Here are the 5 simple steps to make you successful:</p>
+        <ol>
+          <li>Grab an online <a href="https://www.formstemplates.com/warranty-deed/" target="_blank" rel="noopener noreferrer" style="color: gray;"> warranty <i class="fas fa-external-link-alt"></i></a> 
+            or <a href="https://www.formstemplates.com/quit-claim-deed/" target="_blank" rel="noopener noreferrer" style="color: gray;"> quit-claim <i class="fas fa-external-link-alt"></i></a> deed form.</li>
+          <li>Use the state in which the property is located and the name of a person(s) or entity that holds legal title to the property.</li>
+          <li>For the buyer information, ensure you use the name(s) they gave you.</li>
+          <li>Once you complete the form, <b>don't sign</b> quite yet! Find a local notary to witness and verify your signature.</li>
+          <li>Save the signed and notarized document and upload.</li>
+        </ol>
+        
+        <input id="deed" type="file" name="deed" class="inputfile" />
+        <label for="deed" id="deedLabel">Upload Deed</label>
+      </div>
+
+      <div id="deedFileName" style="display: none">
+        <h5></h5>
+        <button id="deedUpload" type="button" class="btn btn-dark" value="SUBMIT">Upload</button>
+        
+        <div id="ipfsDeedResult" class="mt-4"></div>
+        <div id="nextStep">
+          <br>
+          <p>Here is your deed transfer link, cryptographically protected on a decentralized network. 
+            Save it for your records.</p>
+          <p><b>What Happens Next?</b></p>
+          <ul>
+            <li>We'll notify the buyer right away, so they can inspect the document (please note they have 3 
+              calendar days). If there are any issues, we'll be sure to let you know immediately.</li>
+            <li>Once they confirm everything is in order or 3 days have passed, whichever comes first, the funds 
+              will be automatically transfered into your wallet.</li>
+            <li>Finally, we recommend you check with the land-registry in about 6-12 weeks to ensure that the buyer 
+              has mailed the deed for recording and transfer is complete. If you discover that property is still in 
+              your name, feel free to mail it on their behalf.</li>
+          </ul>
+          <!-- fix review link-->
+          <p>Thanks for using Tsaishen Crypto. We sincerely hope that this was the fastest, cheapest, and
+            simplest house selling process ever. <i>We secretly hope it was fun, too!</i> 
+            If so, will you kindly leave us <a href="https://TRUSTPILOT REVIEW LINK" target="_blank" rel="noopener noreferrer" style="color: gray;">
+              a raving review <i class="fas fa-external-link-alt"></i></a> ?
+            If there were any issues, please <a href ="mailto:tsaishenco@gmail.com"> tell us </a>
+            so that we can fix them.
+          </p>
+        </div>
+      
+      </div>
+
+    </div>
+
     <!-- Modal -->
     <div class="modal" id="myModal" tabindex="-1"></div>
+
+    <!-- Footer: NEED TO ADD medium, etherscan, terms, policy -->
+    <div class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4 col-xs-12">
+                  <div class="first">
+                      <h4>Tsaishen</h4>
+                      <ul>
+                        <li><a href="index.html">Upload Your House</a></li>
+                        <li><a href="#">Property Marketplace</a></li>
+                        <li><a href="#">Escrow</a></li>
+                    </ul>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-xs-12">
+                  <div class="second">
+                      <h4>Crypto</h4>
+                      <ul>
+                          <li><a href="#">About</a></li>
+                          <li><a href="#">Join</a></li>
+                          <li><a href="#">Pricing</a></li>
+                      </ul>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-xs-12">
+                  <div class="third">
+                      <h4>House</h4>
+                      <ul>
+                          <li><a href="#">Invest In Real Estate</a></li>
+                          <li><a href="#">Whitepaper</a></li>
+                          <li><a href="#">Buy Tsaishen Token</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <div class="line"></div>
+                  <div class="second2">
+                      <a href="https://twitter.com/meetnev" target="_blank" rel="noopener noreferrer"> <i class="fab fa-twitter margin"></i></a>
+                      <a href="https://github.com/NevMoney/TsaishenCrypto" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github margin"></i></a>
+                      <a href="https://www.linkedin.com/in/nevkraguljevic/" target="_blank" rel="noopener noreferrer"> <i class="fab fa-linkedin margin"></i></a>
+                      <a href="https://www.youtube.com/channel/UCqRYuLYUk2OIxUwzpEPIaAA" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube margin" ></i></a>
+                      <a href="https://www.instagram.com/nevmoney/" target="_blank" rel="noopener noreferrer"> <i class="fab fa-instagram margin"></i></a>
+                      <a href ="mailto:tsaishenco@gmail.com"> <i class="far fa-envelope margin"></i></a>
+                      <a href="#" target="_blank" rel="noopener noreferrer"> <i class="fab fa-ethereum margin"></i></a>
+                      <a href="#" target="_blank" rel="noopener noreferrer"> <i class="fab fa-medium-m margin"></i></a>
+                    </div>
+              </div>
+          </div>
+        </div>
+        <div class="py-3 text-center">
+          Copyright 2020 -
+          <script>
+            document.write(new Date().getFullYear())
+          </script> <a href="https://tsaishen.co">Tsaishen</a> | Join The Evolution
+        </div>
+        <hr>
+        <div class="row" id="privacyTerms">
+          <div class="col-6" id="privacy">
+            <a href="#" target="_blank" rel="noopener noreferrer"> <p>Privacy Policy</p></a>
+          </div>
+          <div class="col-6" id="terms">
+           <a href="#" target="_blank" rel="noopener noreferrer"> <p>Terms</p></a> 
+          </div>
+        </div>
+    </div>
 
     <!-- External scripts -->
     <script

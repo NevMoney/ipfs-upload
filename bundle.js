@@ -10,10 +10,12 @@ const ipfs = ipfsClient({
 let buffer;
 let ipfsHash;
 let ipfsFileHash;
+let ipfsDeed;
  
 //Executed when page finish loading
 $(document).ready(async () => {
   $("#read-container").hide();
+  $("#deed-container").hide();
 
   // this allows the website to use the metamask account
   const accounts = await ethereum.enable();
@@ -36,9 +38,8 @@ $(document).ready(async () => {
 function validateCheckbox(){
   if($("#certification").checked){
     return true;
-  } else {
-    return false;
   }
+  return false;
 };
 
   function hashFile(file) {
@@ -46,7 +47,7 @@ function validateCheckbox(){
     console.log(file.name);
     $("#fileUpload").hide(file.name);
     $("#fileName").show();
-    $("#fileName>h4").html(`File Name: ${file.name}`);
+    $("#fileName>h5").html(`File Name: ${file.name}`);
 
     var reader = new FileReader();
     reader.readAsArrayBuffer(file);
@@ -55,6 +56,24 @@ function validateCheckbox(){
       console.log(buffer);
       const hash = window.web3.utils.sha3(buffer);
       console.log("hash", hash);
+    };
+  }
+
+  function hashDeed(deed) {
+    console.log(deed);
+    console.log(deed.name);
+    $("#deed-container").hide(deed.name);
+    $("#nextStep").hide();
+    $("#deedFileName").show();
+    $("#deedFileName>h5").html(`Deed File: ${deed.name}`);
+
+    var deedReader = new FileReader();
+    deedReader.readAsArrayBuffer(deed);
+    deedReader.onloadend = () => {
+      buffer = Buffer(deedReader.result);
+      console.log(buffer);
+      const hash = window.web3.utils.sha3(buffer);
+      console.log("deedHash", hash);
     };
   }
 
@@ -78,57 +97,52 @@ const addFileToIpfs = async () => {
     external_url: "https://tsaishen.co/cryptoHouse/marketplace/ipfsFileHash/tokenId",
     attributes: [
       {
-        key: address,
+        key: "address",
         trait_type: "Address",
         value: $("#address").val()
       },
       {
-        key: bedrooms,
+        key: "bedrooms",
         trait_type: "Bedrooms",
         value: $("#bedrooms").val()
       },
       {
-        key: bathrooms,
+        key: "bathrooms",
         trait_type: "Bathrooms",
         value: $("#bathrooms").val()
       },
       {
-        key: yearBuilt,
+        key: "yearBuilt",
         trait_type: "Year Built",
         value: $("#yearBuilt").val()
       },
       {
-        key: houseSize,
+        key: "houseSize",
         trait_type: "House Size",
         value: $("#houseSize").val()
       },
       {
-        key: lotSize,
+        key: "lotSize",
         trait_type: "Lot Size",
         value: $("#lotSize").val()
       },
       {
-        key: parcelNumber,
+        key: "parcelNumber",
         trait_type: "Parcel Number",
         value: $("#parcel").val()
       },
       {
-        key: propertyType,
+        key: "propertyType",
         trait_type: "Property Type",
         value: $("#propertyType").val()
       },
       {
-        key: numberOfUnits,
-        trait_type: "Number Of Units",
-        value:  $("#mfUnits").val()
-      },
-      {
-        key: propertyLink,
+        key: "propertyLink",
         trait_type: "Public View Link",
         value:  $("#zillow").val()
       },
       {
-        key: videoLink,
+        key: "videoLink",
         trait_type: "Video Link",
         value: $("#video").val()
       }
@@ -147,6 +161,25 @@ const addFileToIpfs = async () => {
     ipfsFileHash +
     "</a>";
   $("#ipfsResult").html(ipfsLink);
+};
+
+const addDeedToIpfs = async () => {
+  $("#deedUpload").html("Uploading");
+
+  const adding = await ipfs.add(buffer, {
+    progress: (prog) => console.log(`received: ${prog}`),
+  });
+
+  $("#deedUpload").hide();
+  $("#nextStep").show();
+
+  ipfsDeed = adding.cid.toString();
+
+  const ipfsDeedLink =
+    "<a target='_blank' rel='noopener noreferrer' href='https://gateway.ipfs.io/ipfs/" +
+    ipfsDeed + "'>" + ipfsDeed + "</a>";
+
+  $("#ipfsDeedResult").html(ipfsDeedLink);
 };
 
 const showModal = (title, content) => {
@@ -181,23 +214,45 @@ $("#file").change((e) => {
   hashFile(e.target.files[0]);
 });
 
+$("#deed").change((e) => {
+  console.log(e.target.files[0]);
+  hashDeed(e.target.files[0]);
+});
+
+
 $("#upload").click(() => {
   console.log("data hash: " + ipfsFileHash);
-  addFileToIpfs()
+  addFileToIpfs();
 });
+
+$("#deedUpload").click(() => addDeedToIpfs());
 
 // Navigation
 $("#readLink").click(() => {
   $("#upload-container").hide();
+  $("#deed-container").hide();
   $("#uploadLink").removeClass("active");
+  $("#deedLink").removeClass("active");
 
   $("#readLink").addClass("active");
   $("#read-container").show();
 });
 
+$("#deedLink").click(() => {
+  $("#upload-container").hide();
+  $("#read-container").hide();
+  $("#uploadLink").removeClass("active");
+  $("#readLink").removeClass("active");
+
+  $("#deedLink").addClass("active");
+  $("#deed-container").show();
+});
+
 $("#uploadLink").click(() => {
   $("#read-container").hide();
+  $("#deed-container").hide();
   $("#readLink").removeClass("active");
+  $("#deedLink").removeClass("active");
 
   $("#uploadLink").addClass("active");
   $("#upload-container").show();
